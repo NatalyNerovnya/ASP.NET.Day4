@@ -44,16 +44,13 @@ namespace CustomQueue
             tail = 0;
         }
 
-        ///// <summary>
-        ///// Constructor
-        ///// </summary>
-        ///// <param name="arr">array of values</param>
-        //public CustomQueue(params T[] arr)
-        //    : this(arr.Length)
-        //{
-        //    Array.Copy(arr, queue, capacity);
-        //    tail = capacity - 1;
-        //}
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="arr">array of values</param>
+        public CustomQueue(params T[] arr)
+            : this((IEnumerable<T>)arr)
+        { }
 
         /// <summary>
         /// Constructor
