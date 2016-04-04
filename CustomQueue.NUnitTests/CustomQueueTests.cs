@@ -54,6 +54,7 @@ namespace CustomQueue.NUnitTests
         #endregion
 
         #region Dequeue tests
+        #region Properties
         public IEnumerable<TestCaseData> ObjectDequeuElemData
         {
             get
@@ -75,7 +76,9 @@ namespace CustomQueue.NUnitTests
                     .Returns(true);
             }
         }
+        #endregion
 
+        #region Methods
         [Test, TestCaseSource(nameof(ObjectDequeuElemData))]
         public bool DequeueElemTest(object[] arr, CustomQueue<object> expectedQueue)
         {
@@ -85,7 +88,6 @@ namespace CustomQueue.NUnitTests
         }
 
 
-
         [Test, TestCaseSource(nameof(StructDequeuElemData))]
         public bool DequeueElemTest(int[] arr, CustomQueue<int> expectedQueue)
         {
@@ -93,6 +95,7 @@ namespace CustomQueue.NUnitTests
             queue.Dequeue();
             return Same(queue, expectedQueue);
         }
+#endregion
         #endregion
 
         #region Contain tests
@@ -102,6 +105,7 @@ namespace CustomQueue.NUnitTests
             get
             {
                 yield return new TestCaseData(new CustomQueue<object>(1,"Tests"), "Tests" ).Returns(true);
+                yield return new TestCaseData(new CustomQueue<object>(1, "Tests"), "Spring").Returns(false);
             }
         }
 
@@ -111,6 +115,23 @@ namespace CustomQueue.NUnitTests
             return queue.Contain(elem);
         }
 
+        #endregion
+
+        #region Peek tests
+        public IEnumerable<TestCaseData> PeekElementData
+        {
+            get
+            {
+                yield return new TestCaseData(new CustomQueue<int>()).Throws(typeof(ArgumentException));
+                yield return new TestCaseData(new CustomQueue<int>(1,15,23,543)).Returns(1);
+            }
+        }
+
+        [Test, TestCaseSource(nameof(PeekElementData))]
+        public int ContainElement(CustomQueue<int> queue)
+        {
+            return queue.Peek();
+        }
         #endregion
 
         #region Private methods
